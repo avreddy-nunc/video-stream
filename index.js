@@ -1,7 +1,7 @@
 /**************/
 /*** CONFIG ***/
 /**************/
-var PORT = 4000;
+var PORT = process.env.PORT || 4000;
 var apiKey = 46260072;
 var apiSecret = '4a034221cfad67a5c870dd5973efd836f0c0e1b1';
 
