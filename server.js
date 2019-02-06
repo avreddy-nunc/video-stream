@@ -18,6 +18,7 @@ var OpenTok = require('opentok'),
     opentok = new OpenTok(apiKey, apiSecret);
 server.listen(PORT, null, function() {
     console.log("Listening on port " + PORT);
+    console.log(apiKey,apiSecret);
 });
 
 main.get('/', function(req, res){ res.sendFile(__dirname + '/stream.html'); });
