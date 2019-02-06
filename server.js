@@ -2,8 +2,9 @@
 /*** CONFIG ***/
 /**************/
 var PORT = 4000;
-var apiKey = 46260072;
-var apiSecret = '4a034221cfad67a5c870dd5973efd836f0c0e1b1';
+var apiKey = 46264012;
+var apiSecret = '5ad4423a1f0b71c0abc7cf475ce4612f0a5ec78d';
+
 
 /*************/
 /*** SETUP ***/
