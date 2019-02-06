@@ -1,9 +1,10 @@
 /**************/
 /*** CONFIG ***/
 /**************/
-var PORT = process.env.PORT || 4000;
-var apiKey = 46260072;
-var apiSecret = '4a034221cfad67a5c870dd5973efd836f0c0e1b1';
+var PORT = 4000;
+var apiKey = '46264012';
+var apiSecret = '5ad4423a1f0b71c0abc7cf475ce4612f0a5ec78d';
+
 
 /*************/
 /*** SETUP ***/
@@ -14,29 +15,26 @@ var main = express();
 var router = express.Router();
 var server = http.createServer(main);
 var OpenTok = require('opentok'),
-    opentok = new OpenTok(apiKey, apiSecret),
-    session;
-opentok.createSession({mediaMode:"routed"},function (err, sess) {
-    if(err){
-        console.error(err);
-        return;
-    }
-    console.debug('session started - '+ sess.sessionId);
-    session = sess;
-});
+    opentok = new OpenTok(apiKey, apiSecret);
 server.listen(PORT, null, function() {
-    console.log("Listening on port " + PORT);
+    console.log("Listening to port " + PORT);
+    console.log(apiKey,apiSecret);
 });
 
 main.get('/', function(req, res){ res.sendFile(__dirname + '/stream.html'); });
 router.get('/startSession', function (req, res) {
-    if(!session){
-        res.json({"error":"can't start server","response": null});
-        return
-    }
-    var token = session.generateToken();
-    console.log(token);
-    res.json({"error":null,"response":{"id" : session.sessionId,"token":token,"api":apiKey}})
+    console.debug('starting session');
+    opentok.createSession({mediaMode:"routed"},function (err, session) {
+        if(err){
+            console.log(err);
+            res.json({"error":err,"response":null});
+            return
+        }
+        var token = session.generateToken();
+        console.log(token);
+        console.debug('session started - '+ session.sessionId);
+        res.json({"error":null,"response":{"id" : session.sessionId,"token":token,"api":apiKey}})
+    });
 });
 router.get('/startArchive/:sessionId', function (req, res) {
     var archiveOptions = {
