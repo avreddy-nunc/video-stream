@@ -22,6 +22,7 @@ server.listen(PORT, null, function() {
 
 main.get('/', function(req, res){ res.sendFile(__dirname + '/stream.html'); });
 router.get('/startSession', function (req, res) {
+    console.debug('starting session');
     opentok.createSession({mediaMode:"routed"},function (err, session) {
         if(err){
             console.log(err);
